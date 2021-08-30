@@ -28,14 +28,23 @@ function writeToDocument(type) {
   let el = document.getElementById("data");
   //Created empty string to display 10 items only and to clear every time a button is clicked.
   el.innerHTML = "";
+
   getData(type, function(data) {
+    let tableRows = [];
     data = data.results;
     let tableHeaders = getTableHeaders(data[0]);
 
     data.forEach(function(item) {
-      //el.innerHTML += "<p>" + item.name + "</p>";
+      let dataRow = [];
+
+      //creates an individual row
+      Object.keys(item).forEach(function(key) {
+        dataRow.push(`<td>${item[key]}</td>`);
+      });
+      //push the row into our data row
+      tableRows.push(dataRow);
     }); 
 
-    el.innerHTML = `<table>${tableHeaders}</table>`;
+    el.innerHTML = `<table>${tableHeaders}${tableRows}</table>`;
   });
 }

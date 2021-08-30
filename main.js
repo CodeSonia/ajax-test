@@ -1,50 +1,46 @@
 const baseURL = "https://ci-swapi.herokuapp.com/api/";
 
 function getData(type, cb) {
-  let xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
 
-  xhr.open("GET", baseURL + type + "/");
-  xhr.send();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            cb(JSON.parse(this.responseText));
+        }
+    };
 
-  xhr.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      cb(JSON.parse(this.responseText));
-    }
-  };
+    xhr.open("GET", baseURL + type + "/");
+    xhr.send();
 }
 
 function getTableHeaders(obj) {
-  let tableHeaders = [];
+    let tableHeaders = [];
 
-  Object.keys(obj).forEach(function(key) {
-    tableHeaders.push(`<td>${key}</td>`);
-  })
+    Object.keys(obj).forEach(function(key) {
+        tableHeaders.push(`<td>${key}</td>`)
+    });
 
-  return `<tr>${tableHeaders}</tr>`;
+    return `<tr>${tableHeaders}</tr>`;
 }
 
-//Render it to the document
 function writeToDocument(type) {
-  let el = document.getElementById("data");
-  //Created empty string to display 10 items only and to clear every time a button is clicked.
-  el.innerHTML = "";
-
-  getData(type, function(data) {
     let tableRows = [];
-    data = data.results;
-    let tableHeaders = getTableHeaders(data[0]);
+    let el = document.getElementById("data");
 
-    data.forEach(function(item) {
-      let dataRow = [];
+    getData(type, function(data) {
+        data = data.results;
+        let tableHeaders = getTableHeaders(data[0]);
 
-      //creates an individual row
-      Object.keys(item).forEach(function(key) {
-        dataRow.push(`<td>${item[key]}</td>`);
-      });
-      //push the row into our data row
-      tableRows.push(dataRow);
-    }); 
+        data.forEach(function(item) {
+            let dataRow = [];
+            Object.keys(item).forEach(function(key) {
+                let rowData = item[key].toString();
+                let truncatedData = rowData.substring(0, 15);
+                dataRow.push(`<td>${truncatedData}</td>`);
+            });
+            tableRows.push(`<tr>${dataRow}</tr>`)
+        });
 
-    el.innerHTML = `<table>${tableHeaders}${tableRows}</table>`;
-  });
+        el.innerHTML = `<table>${tableHeaders}${tableRows}</table>`;
+    });
 }

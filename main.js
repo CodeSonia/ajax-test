@@ -16,6 +16,7 @@ function getData(type, cb) {
 //Render it to the document
 function writeToDocument(type) {
   getData(type, function(data) {
-    document.getElementById("data").innerHTML = data;
+    console.dir(data);
+    document.getElementById("data").innerHTML = data.results;
   })
 }

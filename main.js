@@ -17,14 +17,19 @@ xhr.open("GET", "https://ci-swapi.herokuapp.com/api/");
 
 xhr.send();
 
+function setData(jsonData) {
+  data = jsonData;
+}
+
 //Listener waiting for the state to change
 xhr.onreadystatechange = function() {
 
   // readyState == 4 means the operation has been completed.
   // then we look at status. Status == 200 means everything is ok
   if(this.readyState == 4 && this.status == 200) {
-    data = this.responseText;
-    console.log(data);
+    setData(JSON.parse(this.responseText));
   }
 };
+
+console.log(data);
 

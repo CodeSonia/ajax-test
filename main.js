@@ -24,7 +24,7 @@ xhr.onreadystatechange = function() {
   // then we look at status. Status == 200 means everything is ok
   if(this.readyState == 4 && this.status == 200) {
     data = this.responseText;
+    console.log(data);
   }
 };
 
-console.log(data);

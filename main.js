@@ -22,6 +22,6 @@ xhr.onreadystatechange = function() {
   // readyState == 4 means the operation has been completed.
   // then we look at status. Status == 200 means everything is ok
   if(this.readyState == 4 && this.status == 200) {
-    console.log(typeof(JSON.parse(this.responseText)))
+    console.log(JSON.parse(this.response))
   }
 };

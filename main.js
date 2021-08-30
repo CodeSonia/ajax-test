@@ -22,8 +22,6 @@ xhr.onreadystatechange = function() {
   // readyState == 4 means the operation has been completed.
   // then we look at status. Status == 200 means everything is ok
   if(this.readyState == 4 && this.status == 200) {
-
-    //once everything is ok, we then use JS to get ID from the DOM & change the inner HTML to the response from the xhr object
-    document.getElementById("data").innerHTML = this.responseText;
+    console.log(typeof(JSON.parse(this.responseText)))
   }
 };

@@ -4,6 +4,7 @@
 XML stands for Extensible Markup Language which is similar to HTML in the way it structures its data, and it's a precursor to JSON. 
 */
 let xhr = new XMLHttpRequest();
+let data;
 
 //Open a connection:
 
@@ -22,6 +23,8 @@ xhr.onreadystatechange = function() {
   // readyState == 4 means the operation has been completed.
   // then we look at status. Status == 200 means everything is ok
   if(this.readyState == 4 && this.status == 200) {
-    console.log(JSON.parse(this.response))
+    data = this.responseText;
   }
 };
+
+console.log(data);

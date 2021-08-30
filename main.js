@@ -15,8 +15,15 @@ function getData(type, cb) {
 
 //Render it to the document
 function writeToDocument(type) {
+  let el = document.getElementById("data");
+  //Created empty string to display 10 items only and to clear every time a button is clicked.
+  el.innerHTML = "";
   getData(type, function(data) {
-    console.dir(data);
-    document.getElementById("data").innerHTML = data.results;
+    data = data.results;
+
+    data.forEach(function(item) {
+      el.innerHTML += "<p>" + item.name + "</p>";
+    })
+    
   })
 }
